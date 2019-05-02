@@ -58,22 +58,22 @@ addPhraseToDisplay(phraseArray);
 
 const checkLetter = buttonChoosen => {
   letters = document.querySelectorAll(".letter");
+  let found = null;
   for (let i = 0; i < letters.length; i++) {
     if (buttonChoosen.innerText === letters[i].innerText) {
       const correct = letters[i];
       correct.className = "show";
-      return correct;
-    } else {
-      return null;
+      found = true;
     }
   }
+  return found;
 };
 
 qwertyKeyboard.addEventListener("click", e => {
   const buttonChoosen = e.target;
   if (buttonChoosen.tagName === "BUTTON") {
     buttonChoosen.className = "choosen";
-    // buttonChoosen.setAttribute("disabled", "");
+    buttonChoosen.setAttribute("disabled", "");
     buttonChoosen.style.backgroundColor = "#37474F";
     buttonChoosen.style.color = "white";
     console.log(buttonChoosen);
