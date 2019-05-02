@@ -69,30 +69,9 @@ const checkLetter = buttonChoosen => {
   }
 };
 
-// const checkLetter = buttonChoosen => {
-//   const letters = document.querySelectorAll(".letter");
-//   const match = 0;
-//   for (let i = 0; i < letters.length; i++) {
-//     if (buttonChoosen.innerText === letters[i].innerText) {
-//       letters[i].className = "show";
-//       match = buttonChoosen.innerText;
-//     }
-
-//     return match;
-//   }
-// };
-
 qwertyKeyboard.addEventListener("click", e => {
   const buttonChoosen = e.target;
-
-  if (
-    buttonChoosen.tagName !== "BUTTON" ||
-    buttonChoosen.className === "choosen"
-  ) {
-  } else if (
-    buttonChoosen.tagName === "BUTTON" &&
-    buttonChoosen.className !== "choosen"
-  ) {
+  if (buttonChoosen.tagName === "BUTTON") {
     buttonChoosen.className = "choosen";
     // buttonChoosen.setAttribute("disabled", "");
     buttonChoosen.style.backgroundColor = "#37474F";
