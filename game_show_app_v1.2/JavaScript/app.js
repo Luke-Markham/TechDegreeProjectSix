@@ -1,20 +1,23 @@
 const qwertyKeyboard = document.querySelector("#qwerty");
 const startGame = document.querySelector(".btn__reset");
+const button = document.querySelectorAll("button");
 const overlay = document.querySelector("#overlay");
-const missed = 0;
+let missed = 0;
 const phraseDiv = document.querySelector("#phrase");
 const phraseUl = phraseDiv.firstElementChild;
 const phrases = [
-  "an apple a day keeps the doctor away",
+  "five fruits a day",
   "an eye for an eye",
-  "do not judge a book by the cover",
+  "do not judge a book by its cover",
   "elbows off the table",
   "wait till your father gets home"
 ];
 
-startGame.addEventListener("click", () => {
-  overlay.style.display = "none";
-});
+// startGame.addEventListener("click", () => {
+//   overlay.style.display = "none";
+// });
+
+overlay.style.display = "none";
 
 // random number function to get a number for random array function
 
@@ -53,20 +56,39 @@ addPhraseToDisplay(phraseArray);
 
 // Check letter function
 
-const checkLetter = keyGuessed => {
-  const letters = document.querySelectorAll(".letter");
-  for (i = 0; i < letters.length; i++) {
-    if ((keyGuessed = letters[i])) {
-      const showLetter = letters[i];
-      showLetter.className = "show";
-      return showLetter;
+const checkLetter = buttonChoosen => {
+  letters = document.querySelectorAll(".letter");
+  for (let i = 0; i < letters.length; i++) {
+    if (buttonChoosen.innerText === letters[i].innerText) {
+      const correct = letters[i];
+      correct.className = "show";
+      return correct;
     } else {
       return null;
     }
   }
 };
 
-const keyEvent = qwertyKeyboard.parentNode;
-keyEvent.addEventListener("keyup", e => {
-  e.target.className = "choosen";
+qwertyKeyboard.addEventListener("click", e => {
+  const buttonChoosen = e.target;
+
+  if (
+    buttonChoosen.tagName !== "BUTTON" ||
+    buttonChoosen.className === "choosen"
+  ) {
+  } else if (
+    buttonChoosen.tagName === "BUTTON" &&
+    buttonChoosen.className !== "choosen"
+  ) {
+    buttonChoosen.className = "choosen";
+    // buttonChoosen.setAttribute("disabled", "");
+    buttonChoosen.style.backgroundColor = "#37474F";
+    buttonChoosen.style.color = "white";
+    console.log(buttonChoosen);
+  }
+  checkLetter(buttonChoosen);
+  if (checkLetter(buttonChoosen) === null) {
+    missed = +1;
+    console.log(missed);
+  }
 });
