@@ -135,8 +135,9 @@ qwertyKeyboard.addEventListener("click", e => {
 // reset game after win or lose
 
 startGame.addEventListener("click", e => {
-  if (e.target.innerText === "Play again?" || "Try again?") {
+  if (e.target.innerText.toLowerCase() === "play again?") {
+    location.reload();
+  } else if (e.target.innerText.toLowerCase() === "try again?") {
     location.reload();
   }
 });
-overlay.style.display = "none";
