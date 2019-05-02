@@ -89,6 +89,8 @@ const checkWin = () => {
     title.textContent = "Success!";
     title.style.marginTop = "100px";
     startGame.textContent = "Play again?";
+    lastHeart = document.querySelector(".tries");
+    lastHeart.style.display = "none";
   } else if (missed === 4) {
     lastHeart = document.querySelector(".tries");
     lastHeart.style.transition = "transform .2s ease-in";
