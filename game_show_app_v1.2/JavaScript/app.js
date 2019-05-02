@@ -69,6 +69,19 @@ const checkLetter = buttonChoosen => {
   }
 };
 
+// const checkLetter = buttonChoosen => {
+//   const letters = document.querySelectorAll(".letter");
+//   const match = 0;
+//   for (let i = 0; i < letters.length; i++) {
+//     if (buttonChoosen.innerText === letters[i].innerText) {
+//       letters[i].className = "show";
+//       match = buttonChoosen.innerText;
+//     }
+
+//     return match;
+//   }
+// };
+
 qwertyKeyboard.addEventListener("click", e => {
   const buttonChoosen = e.target;
 
@@ -88,7 +101,7 @@ qwertyKeyboard.addEventListener("click", e => {
   }
   checkLetter(buttonChoosen);
   if (checkLetter(buttonChoosen) === null) {
-    missed = +1;
+    missed += 1;
     console.log(missed);
   }
 });
