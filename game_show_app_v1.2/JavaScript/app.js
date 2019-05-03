@@ -19,39 +19,42 @@ startGame.addEventListener("click", () => {
 });
 
 // random number function to get a number for random array function
+const createGameEnviroment = () => {
+  let getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (5 - 0)) + 0;
+  };
+  let randomNumber = getRandomNumber(0, 5);
 
-let getRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (5 - 0)) + 0;
-};
-let randomNumber = getRandomNumber(0, 5);
-
-/* 
+  /* 
 function that gets a random phrase from the phrases array 
 then splits it into a new array of individual characters 
 */
 
-const getRandomPhraseAsArray = arr => {
-  const randomPhrase = arr[randomNumber];
-  const randomPhraseSplit = randomPhrase.split("", randomPhrase.length);
-  return randomPhraseSplit;
-};
+  const getRandomPhraseAsArray = arr => {
+    const randomPhrase = arr[randomNumber];
+    const randomPhraseSplit = randomPhrase.split("", randomPhrase.length);
+    return randomPhraseSplit;
+  };
 
-let phraseArray = getRandomPhraseAsArray(phrases);
+  let phraseArray = getRandomPhraseAsArray(phrases);
 
-//  function that appends the each letter of the array as li in the ul under the class "letter"
+  //  function that appends the each letter of the array as li in the ul under the class "letter"
 
-const addPhraseToDisplay = arr => {
-  for (i = 0; i < arr.length; i++) {
-    const eachLetter = document.createElement("li");
-    eachLetter.innerText = arr[i];
-    phraseUl.appendChild(eachLetter);
-    if (eachLetter.innerText !== "") {
-      eachLetter.className = "letter";
+  const addPhraseToDisplay = arr => {
+    for (i = 0; i < arr.length; i++) {
+      const eachLetter = document.createElement("li");
+      eachLetter.innerText = arr[i];
+      phraseUl.appendChild(eachLetter);
+      if (eachLetter.innerText !== "") {
+        eachLetter.className = "letter";
+      }
     }
-  }
+  };
+
+  addPhraseToDisplay(phraseArray);
 };
 
-addPhraseToDisplay(phraseArray);
+createGameEnviroment();
 
 // Check letter function
 
@@ -200,9 +203,7 @@ startGame.addEventListener("click", e => {
     while (ol.firstChild) {
       ol.removeChild(ol.firstChild);
     }
-
-    let phraseArray = getRandomPhraseAsArray(phrases);
-    addPhraseToDisplay(phraseArray);
+    createGameEnviroment();
     makeNewHearts();
   }
 });
