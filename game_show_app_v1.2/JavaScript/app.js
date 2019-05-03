@@ -20,10 +20,10 @@ startGame.addEventListener("click", () => {
 
 // random number function to get a number for random array function
 
-const getRandomNumber = (min, max) => {
+let getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (5 - 0)) + 0;
 };
-const randomNumber = getRandomNumber(0, 5);
+let randomNumber = getRandomNumber(0, 5);
 
 /* 
 function that gets a random phrase from the phrases array 
@@ -36,7 +36,7 @@ const getRandomPhraseAsArray = arr => {
   return randomPhraseSplit;
 };
 
-const phraseArray = getRandomPhraseAsArray(phrases);
+let phraseArray = getRandomPhraseAsArray(phrases);
 
 //  function that appends the each letter of the array as li in the ul under the class "letter"
 
@@ -80,17 +80,18 @@ const checkWin = () => {
   if (show.length === letters.length) {
     overlay.className = "win";
     overlay.style.display = "flex";
+    overlay.style.zIndex = "100";
     for (let i = 0; i < letters.length; i++) {
       letters[i].style.backgroundColor = "white";
     }
     phraseUl.style.transition = "background-color 5s ease;";
-    phraseUl.style.marginBottom = "450px";
-    qwertyKeyboard.style.display = "none";
+    phraseUl.style.marginBottom = "200px";
+    phraseDiv.style.zIndex = "101";
+
     title.textContent = "Success!";
     title.style.marginTop = "100px";
     startGame.textContent = "Play again?";
     lastHeart = document.querySelector(".tries");
-    lastHeart.style.display = "none";
   } else if (missed === 4) {
     lastHeart = document.querySelector(".tries");
     lastHeart.style.transition = "transform .2s ease-in";
@@ -98,8 +99,7 @@ const checkWin = () => {
   } else if (missed >= 5) {
     overlay.className = "lose";
     overlay.style.display = "flex";
-    phraseUl.style.display = "none";
-    qwertyKeyboard.style.display = "none";
+    overlay.style.zIndex = "102";
     title.textContent = "I'm not angry... I'm just dissapointed.";
     startGame.textContent = "Try again?";
   }
@@ -134,12 +134,75 @@ qwertyKeyboard.addEventListener("click", e => {
   }, delayInMilliseconds);
 });
 
+// make new hearts
+const makeNewHearts = () => {
+  const scoreboard = document.querySelector("#scoreboard");
+  const ol = scoreboard.firstElementChild;
+  const li = ol.firstElementChild;
+  const newHeart1 = document.createElement("li");
+  newHeart1.style.marginRight = ".25em";
+  const newHeart2 = document.createElement("li");
+  newHeart2.style.marginRight = ".25em";
+  const newHeart3 = document.createElement("li");
+  newHeart3.style.marginRight = ".25em";
+  const newHeart4 = document.createElement("li");
+  newHeart4.style.marginRight = ".25em";
+  const newHeart5 = document.createElement("li");
+
+  newHeart1.innerHTML =
+    '<img src="images/liveHeart.png" height="35px" width="30px">';
+  newHeart1.className = "tries";
+
+  newHeart2.innerHTML =
+    '<img src="images/liveHeart.png" height="35px" width="30px">';
+  newHeart2.className = "tries";
+
+  newHeart3.innerHTML =
+    '<img src="images/liveHeart.png" height="35px" width="30px">';
+  newHeart3.className = "tries";
+
+  newHeart4.innerHTML =
+    '<img src="images/liveHeart.png" height="35px" width="30px">';
+  newHeart4.className = "tries";
+
+  newHeart5.innerHTML =
+    '<img src="images/liveHeart.png" height="35px" width="30px">';
+  newHeart5.className = "tries";
+
+  ol.appendChild(newHeart1);
+  ol.appendChild(newHeart2);
+  ol.appendChild(newHeart3);
+  ol.appendChild(newHeart4);
+  ol.appendChild(newHeart5);
+};
+
 // reset game after win or lose
 
 startGame.addEventListener("click", e => {
-  if (e.target.innerText.toLowerCase() === "play again?") {
-    location.reload();
-  } else if (e.target.innerText.toLowerCase() === "try again?") {
-    location.reload();
+  if (
+    e.target.innerText.toLowerCase() === "play again?" ||
+    e.target.innerText.toLowerCase() === "try again?"
+  ) {
+    missed = 0;
+    phraseUl.style.marginBottom = "10px";
+    for (i = 0; i < button.length; i++) {
+      button[i].classList.remove("choosen");
+      button[i].removeAttribute("disabled");
+      button[i].style.color = "black";
+      button[i].style.backgroundColor = " var(--color-keys-light)";
+    }
+
+    while (phraseUl.firstChild) {
+      phraseUl.removeChild(phraseUl.firstChild);
+    }
+
+    let ol = document.querySelector("ol");
+    while (ol.firstChild) {
+      ol.removeChild(ol.firstChild);
+    }
+
+    let phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
+    makeNewHearts();
   }
 });
