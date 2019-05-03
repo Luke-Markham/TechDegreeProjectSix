@@ -88,11 +88,11 @@ const checkWin = () => {
       letters[i].style.backgroundColor = "white";
     }
     phraseUl.style.transition = "background-color 5s ease;";
-    phraseUl.style.marginBottom = "200px";
+
     phraseDiv.style.zIndex = "101";
 
     title.textContent = "Success!";
-    title.style.marginTop = "100px";
+    title.style.marginTop = "250px";
     startGame.textContent = "Play again?";
     lastHeart = document.querySelector(".tries");
   } else if (missed === 4) {
@@ -105,6 +105,7 @@ const checkWin = () => {
     overlay.style.zIndex = "102";
     title.textContent = "I'm not angry... I'm just dissapointed.";
     startGame.textContent = "Try again?";
+    title.style.marginTop = "100px";
   }
 };
 
